@@ -28,20 +28,15 @@ const useFetchData = () => {
         findLargestId();
     }, [data, findLargestId]);
 
-    const updateComments = useCallback((updatedComment) => {
-        setData((prevData) => {
-            const updatedComments = prevData.comments.map((comment) =>
-                comment.id === updatedComment.id ? updatedComment : comment
-            );
-            return { ...prevData, comments: updatedComments };
-        });
-    }, []);
+    const sortCommentsByScore = (comments) => {
+        return [...comments].sort((a, b) => b.score - a.score);
+    };
 
     const addComment = (newComment) => {
         setData((prevData) => {
             return {
                 ...prevData,
-                comments: [...prevData.comments, newComment]
+                comments: sortCommentsByScore([...prevData.comments, newComment])
             };
         });
     };
@@ -77,24 +72,41 @@ const useFetchData = () => {
     };
 
     const deleteCommentOrReply = (id) => {
-      setData((prevData) => {
-          const updatedComments = prevData.comments
-              .map((comment) => {
-                  if (comment.id === id) {
-                      return null;
-                  }
-  
-                  const updatedReplies = comment.replies.filter(reply => reply.id !== id);
-                  return { ...comment, replies: updatedReplies };
-              })
-              .filter(comment => comment !== null); 
-  
-          return { ...prevData, comments: updatedComments };
-      });
-  };
-  
+        setData((prevData) => {
+            const updatedComments = prevData.comments
+                .map((comment) => {
+                    if (comment.id === id) {
+                        return null;
+                    }
 
-    return { data, updateComments, addComment, addReply, updateCommentOrReply, deleteCommentOrReply, largestId };
+                    const updatedReplies = comment.replies.filter((reply) => reply.id !== id);
+                    return { ...comment, replies: updatedReplies };
+                })
+                .filter((comment) => comment !== null);
+
+            return { ...prevData, comments: updatedComments };
+        });
+    };
+
+    const updateScore = (id, newScore) => {
+        setData((prevData) => {
+            const updatedComments = prevData.comments.map((comment) => {
+                if (comment.id === id) {
+                    return { ...comment, score: newScore };
+                }
+                const updatedReplies = comment.replies.map((reply) => {
+                    if (reply.id === id) {
+                        return { ...reply, score: newScore };
+                    }
+                    return reply;
+                });
+                return { ...comment, replies: updatedReplies };
+            });
+            return { ...prevData, comments: sortCommentsByScore(updatedComments) };
+        });
+    };
+
+    return { data, addComment, addReply, updateCommentOrReply, deleteCommentOrReply, updateScore, largestId };
 };
 
 export default useFetchData;
