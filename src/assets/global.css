@@ -49,6 +49,17 @@ body {
     color: #5357B6;
 }
 
+.dark-blue-bg {
+    background-color: #5357B6;
+}
+
+.input-hover:is(:hover, :active, :focus-visible) {
+    outline: 1px solid #5357B6;
+}
+.red {
+    color: #ED6368;
+}
+
 .light-blue-bg {
     background-color: #F5F6FA;
 }
@@ -67,4 +78,12 @@ body {
 
 .ff-bold {
     font-family: "Bold";
+}
+
+.ff-medium {
+    font-family: "Medium";
+}
+
+.comment-border {
+    border-color: #E9EBF0;
 }

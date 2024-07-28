@@ -2,14 +2,18 @@ import React from "react";
 import Minus from "../assets/images/icon-minus.svg";
 import Plus from "../assets/images/icon-plus.svg";
 import Reply from "../assets/images/icon-reply.svg";
+import Delete from "../assets/images/icon-delete.svg";
+import Edit from "../assets/images/icon-edit.svg";
 
-function Comment({ image, username, creationDate, content, score }) {
+function Comment({ user, creationDate, content, score, currentUser }) {
+    const isCurrentUser = currentUser.userId === user.userId;
     return (
         <div className="p-4 sm:p-6 bg-white relative flex flex-col gap-4 sm:flex-row rounded-lg">
             <div>
                 <div className="flex items-center gap-4 sm:gap-8 mb-4">
-                    <img src={image} alt={username} className="w-8 h-8" />
-                    <div className="black-font-color ff-bold">{username}</div>
+                    <img src={user.image.webp} alt={user.username} className="w-8 h-8" />
+                    <div className="black-font-color ff-bold">{user.username}</div>
+                    {isCurrentUser && <div className="ff-medium text-white dark-blue-bg text-sm rounded px-1">you</div>}
                     <div className="grey-font-color">{creationDate}</div>
                 </div>
                 <p className="light-grey-font-color">{content}</p>
@@ -24,13 +28,28 @@ function Comment({ image, username, creationDate, content, score }) {
                         <img src={Minus} alt="minus sign" />
                     </div>
                 </div>
-                <button className="flex items-center gap-2 dark-blue ff-bold cursor-pointer sm:absolute top-6 right-7">
-                    <img src={Reply} alt="blue arrow" className="w-3.5 h-3.5" />
-                    Reply
-                </button>
+                <div className="flex items-center gap-4 sm:gap-6 sm:absolute top-6 right-7">
+                    {isCurrentUser ? (
+                        <>
+                        <CommentButton colorClass={"red"} content={"Delete"} imageSrc={Delete} />
+                        <CommentButton colorClass={"dark-blue"} content={"Edit"} imageSrc={Edit} />
+                        </>
+                    ) : (
+                        <CommentButton colorClass={"dark-blue"} content={"Reply"} imageSrc={Reply} />
+                    )}
+                </div>
             </div>
         </div>
     );
 }
 
 export default Comment;
+
+function CommentButton({ colorClass, content, imageSrc }) {
+    return (
+        <button className={`${colorClass} flex items-center gap-2 ff-bold cursor-pointer transition ease-in-out duration-300 hover:opacity-70`}>
+            <img src={imageSrc} alt="blue arrow" className="w-3.5 h-3.5" />
+            {content}
+        </button>
+    );
+}
