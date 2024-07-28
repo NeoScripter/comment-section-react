@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Black";
+    src: url(fonts/Rubik-Black.woff2) format("woff2"), url(fonts/Rubik-Black.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Bold";
+    src: url(fonts/Rubik-Bold.woff2) format("woff2"), url(fonts/Rubik-Bold.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Regular";
+    src: url(fonts/Rubik-Regular.woff2) format("woff2"), url(fonts/Rubik-Regular.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Light";
+    src: url(fonts/Rubik-Light.woff2) format("woff2"), url(fonts/Rubik-Light.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Medium";
+    src: url(fonts/Rubik-Medium.woff2) format("woff2"), url(fonts/Rubik-Medium.woff) format("woff");
+}
+
+@font-face {
+    font-family: "Italic";
+    src: url(fonts/Rubik-Italic.woff2) format("woff2"), url(fonts/Rubik-Italic.woff) format("woff");
+}
+
+html {
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+body {
+    font-family: "Regular";
+    font-size: 16px;
+    overflow-x: hidden;
+    overflow-x: clip;
+    background-color: #F5F6FA;
+}
+
+.dark-blue {
+    color: #5357B6;
+}
+
+.light-blue-bg {
+    background-color: #F5F6FA;
+}
+
+.black-font-color {
+    color: #334253;
+}
+
+.grey-font-color {
+    color: #67727E;
+}
+
+.light-grey-font-color {
+    color: #67727E;
+}
+
+.ff-bold {
+    font-family: "Bold";
+}
