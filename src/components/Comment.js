@@ -10,7 +10,7 @@ function Comment({
     id,
     userId,
     image,
-    commentUsername,
+    replyTo,
     username,
     creationDate,
     content,
@@ -66,7 +66,7 @@ function Comment({
                     />
                 ) : (
                     <p className="light-grey-font-color">
-                        {commentUsername && <span className="font-bold text-blue-500">@{commentUsername} </span>}
+                        {replyTo && <span className="font-bold dark-blue">@{replyTo} </span>}
                         {newContent}
                     </p>
                 )}

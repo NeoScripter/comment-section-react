@@ -32,7 +32,7 @@ function App() {
         }
     }
 
-    function handleNewReply(id, newReply) {
+    function handleNewReply(id, newReply, replyTo) {
         if (newReply.length > 0) {
             const newReplies = {
                 id: largestId + 1,
@@ -40,7 +40,7 @@ function App() {
                 createdAt: new Date().getTime(),
                 score: 0,
                 user: currentUser,
-                replies: []
+                replyingTo: replyTo
             };
             addReply(id, newReplies);
         }
@@ -103,6 +103,7 @@ function App() {
                             commentId={comment.id}
                             modalId={comment.id}
                             handleModalsClose={handleModalsClose}
+                            replyTo={comment.user.username}
                         />
                     )}
                     {comment.replies.length !== 0 && (
@@ -114,7 +115,7 @@ function App() {
                                         id={reply.id}
                                         userId={reply.user.userId}
                                         image={reply.user.image.webp}
-                                        commentUsername={reply.replyingTo}
+                                        replyTo={reply.replyingTo}
                                         username={reply.user.username}
                                         creationDate={calculateDate(reply.createdAt)}
                                         content={reply.content}
@@ -132,6 +133,7 @@ function App() {
                                             commentId={comment.id}
                                             modalId={reply.id}
                                             handleModalsClose={handleModalsClose}
+                                            replyTo={reply.user.username}
                                         />
                                     )}
                                 </React.Fragment>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function AddReply({ currentUser, onClick, commentId, modalId, handleModalsClose }) {
+function AddReply({ currentUser, onClick, commentId, modalId, handleModalsClose, replyTo }) {
     const [newContent, setNewContent] = useState("");
 
     return (
@@ -13,7 +13,7 @@ function AddReply({ currentUser, onClick, commentId, modalId, handleModalsClose 
             ></textarea>
             <button
                 onClick={() => {
-                    onClick(commentId, newContent);
+                    onClick(commentId, newContent, replyTo);
                     setNewContent(''); 
                     handleModalsClose(modalId);
                 }} 
