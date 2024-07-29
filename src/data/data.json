@@ -63,6 +63,151 @@
           }
         }
       ]
+    },
+    {
+      "id": "comment5",
+      "content": "Great work on this project! I particularly liked the use of animations.",
+      "createdAt": 1721009830265,
+      "score": 8,
+      "user": {
+        "image": { 
+          "webp": "avatars/image-patrick.webp"
+        },
+        "username": "daniel",
+        "userId": "user5"
+      },
+      "replies": [
+        {
+          "id": "comment6",
+          "content": "Thanks, Daniel! Animations are indeed a great way to enhance user experience.",
+          "createdAt": 1721577830265,
+          "score": 6,
+          "replyingTo": "daniel",
+          "user": {
+            "image": { 
+              "webp": "avatars/image-juliusomo.webp"
+            },
+            "username": "juliusomo",
+            "userId": "user1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comment7",
+      "content": "I think the user interface can be made more intuitive.",
+      "createdAt": 1721897830265,
+      "score": 7,
+      "user": {
+        "image": { 
+          "webp": "avatars/image-kira.webp"
+        },
+        "username": "kimberly",
+        "userId": "user6"
+      },
+      "replies": [
+        {
+          "id": "comment8",
+          "content": "Good point, Kimberly. I'll look into making the UI more user-friendly.",
+          "createdAt": 1722009830265,
+          "score": 5,
+          "replyingTo": "kimberly",
+          "user": {
+            "image": { 
+              "webp": "avatars/image-maxblagun.webp"
+            },
+            "username": "maxblagun",
+            "userId": "user3"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comment9",
+      "content": "Does this project support accessibility features?",
+      "createdAt": 1720009830265,
+      "score": 10,
+      "user": {
+        "image": { 
+          "webp": "avatars/image-jonathan.webp"
+        },
+        "username": "thomas",
+        "userId": "user7"
+      },
+      "replies": [
+        {
+          "id": "comment10",
+          "content": "Yes, Thomas. Accessibility is a key aspect and is well integrated into the project.",
+          "createdAt": 1720577830265,
+          "score": 7,
+          "replyingTo": "thomas",
+          "user": {
+            "image": { 
+              "webp": "avatars/image-amyrobson.webp"
+            },
+            "username": "amyrobson",
+            "userId": "user2"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comment11",
+      "content": "I love the color scheme you chose. It's very calming.",
+      "createdAt": 1721009830265,
+      "score": 9,
+      "user": {
+        "image": { 
+          "webp": "avatars/image-daniel.webp"
+        },
+        "username": "liam",
+        "userId": "user8"
+      },
+      "replies": [
+        {
+          "id": "comment12",
+          "content": "Thank you, Liam! I spent a lot of time picking the right colors.",
+          "createdAt": 1721577830265,
+          "score": 8,
+          "replyingTo": "liam",
+          "user": {
+            "image": { 
+              "webp": "avatars/image-juliusomo.webp"
+            },
+            "username": "juliusomo",
+            "userId": "user1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "comment13",
+      "content": "The documentation is very clear and helpful. Great job!",
+      "createdAt": 1722009830265,
+      "score": 11,
+      "user": {
+        "image": { 
+          "webp": "avatars/image-jeanette.webp"
+        },
+        "username": "emily",
+        "userId": "user9"
+      },
+      "replies": [
+        {
+          "id": "comment14",
+          "content": "I'm glad you found the documentation helpful, Emily. Thank you!",
+          "createdAt": 1722007830265,
+          "score": 9,
+          "replyingTo": "emily",
+          "user": {
+            "image": { 
+              "webp": "avatars/image-ramsesmiron.webp"
+            },
+            "username": "ramsesmiron",
+            "userId": "user4"
+          }
+        }
+      ]
     }
   ]
 }

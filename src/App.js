@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import useFetchData from "./hooks/useFetchData";
 import Comment from "./components/Comment";
 import AddReply from "./components/AddReply";
 import AddComment from "./components/AddComment";
+import useModalState from "./hooks/useModalState";
 
 function App() {
     const { data, addComment, addReply, updateCommentOrReply, deleteCommentOrReply, updateScore, largestId } =
         useFetchData();
-    const [openReplyModals, setOpenReplyModals] = useState([]);
+    const { openModals, handleOpenModal, handleCloseModal } = useModalState();
     const currentUser = data.currentUser;
-
-    function handleModalsUpdate(id) {
-        setOpenReplyModals((prev) => [...prev, id]);
-    }
-
-    function handleModalsClose(id) {
-        setOpenReplyModals((prev) => prev.filter((prevId) => prevId !== id));
-    }
 
     function handleNewComment(id, newContent) {
         if (newContent.length > 0) {
@@ -50,59 +43,26 @@ function App() {
         deleteCommentOrReply(id);
     }
 
-    function calculateDate(date) {
-      const minute = 1000 * 60;
-      const hour = minute * 60;
-      const day = hour * 24;
-      const now = new Date().getTime();
-      const difference = now - date; 
-      const differenceInDays = Math.floor(difference / day);
-  
-      const currentDate = new Date(now);
-      const pastDate = new Date(date);
-      const differenceInMonths =
-          (currentDate.getFullYear() - pastDate.getFullYear()) * 12 +
-          (currentDate.getMonth() - pastDate.getMonth());
-  
-      let result;
-      if (differenceInMonths > 0) {
-          result = `${differenceInMonths} months ago`;
-      } else if (differenceInDays > 0) {
-          result = `${differenceInDays} days ago`;
-      } else {
-          const differenceInHours = Math.floor(difference / hour);
-          result = `${differenceInHours} hours ago`;
-      }
-      return result;
-  }
-  
     return (
         <div className="select-none py-8 px-4 max-w-3xl mx-auto grid gap-4 sm:gap-5">
             {data.comments.map((comment) => (
                 <React.Fragment key={comment.id}>
                     <Comment
                         key={comment.id}
-                        id={comment.id}
-                        userId={comment.user.userId}
-                        image={comment.user.image.webp}
-                        replyTo={null}
-                        username={comment.user.username}
-                        creationDate={calculateDate(comment.createdAt)}
-                        content={comment.content}
-                        score={comment.score}
+                        comment={comment}
                         currentUser={currentUser}
-                        handleModalsUpdate={handleModalsUpdate}
+                        handleOpenModal={handleOpenModal}
                         handleDelete={handleDelete}
                         updateComment={updateCommentOrReply}
                         updateScore={updateScore}
                     />
-                    {openReplyModals.includes(comment.id) && (
+                    {openModals.includes(comment.id) && (
                         <AddReply
                             currentUser={currentUser}
                             onClick={handleNewReply}
                             commentId={comment.id}
                             modalId={comment.id}
-                            handleModalsClose={handleModalsClose}
+                            handleCloseModal={handleCloseModal}
                             replyTo={comment.user.username}
                         />
                     )}
@@ -112,27 +72,20 @@ function App() {
                                 <React.Fragment key={reply.id}>
                                     <Comment
                                         key={reply.id}
-                                        id={reply.id}
-                                        userId={reply.user.userId}
-                                        image={reply.user.image.webp}
-                                        replyTo={reply.replyingTo}
-                                        username={reply.user.username}
-                                        creationDate={calculateDate(reply.createdAt)}
-                                        content={reply.content}
-                                        score={reply.score}
+                                        comment={reply}
                                         currentUser={currentUser}
-                                        handleModalsUpdate={handleModalsUpdate}
+                                        handleOpenModal={handleOpenModal}
                                         handleDelete={handleDelete}
                                         updateComment={updateCommentOrReply}
                                         updateScore={updateScore}
                                     />
-                                    {openReplyModals.includes(reply.id) && (
+                                    {openModals.includes(reply.id) && (
                                         <AddReply
                                             currentUser={currentUser}
                                             onClick={handleNewReply}
                                             commentId={comment.id}
                                             modalId={reply.id}
-                                            handleModalsClose={handleModalsClose}
+                                            handleCloseModal={handleCloseModal}
                                             replyTo={reply.user.username}
                                         />
                                     )}

@@ -5,27 +5,22 @@ import Reply from "../assets/images/icon-reply.svg";
 import Delete from "../assets/images/icon-delete.svg";
 import Edit from "../assets/images/icon-edit.svg";
 import DeleteModal from "./DeleteModal";
+import CommentButton from "./CommentButton";
+import calculateDate from "../functions/CalculateDate";
 
 function Comment({
-    id,
-    userId,
-    image,
-    replyTo,
-    username,
-    creationDate,
-    content,
-    score,
+    comment,
     currentUser,
-    handleModalsUpdate,
+    handleOpenModal,
     handleDelete,
     updateComment,
     updateScore
 }) {
     const [isEdited, setIsEdited] = useState(false);
-    const [newContent, setNewContent] = useState(content);
+    const [newContent, setNewContent] = useState(comment.content);
     const [showModal, setShowModal] = useState(false);
-    const initialScore = useRef(score);
-    const isCurrentUser = currentUser.userId === userId;
+    const initialScore = useRef(comment.score);
+    const isCurrentUser = currentUser.userId === comment.user.userId;
 
     function handleEditUpdate() {
         setIsEdited((prev) => !prev);
@@ -36,27 +31,27 @@ function Comment({
     }
 
     function incrementScore() {
-        if (score <= initialScore.current) {
-            updateScore(id, score + 1);
+        if (comment.score <= initialScore.current) {
+            updateScore(comment.id, comment.score + 1);
         }
     }
 
     function decrementScore() {
-        if (score >= initialScore.current) {
-            updateScore(id, score - 1);
+        if (comment.score >= initialScore.current) {
+            updateScore(comment.id, comment.score - 1);
         }
     }
 
     return (
         <>
-        {showModal && <DeleteModal id={id} handleDelete={handleDelete} handleShowModal={handleShowModal}/>}
+        {showModal && <DeleteModal id={comment.id} handleDelete={handleDelete} handleShowModal={handleShowModal}/>}
         <div className="p-4 sm:p-6 bg-white relative flex flex-col gap-4 sm:flex-row rounded-lg">
             <div className="w-full">
                 <div className="flex items-center gap-4 sm:gap-8 mb-4">
-                    <img src={image} alt={username} className="w-8 h-8" />
-                    <div className="black-font-color ff-bold">{username}</div>
+                    <img src={comment.user.image.webp} alt={comment.user.username} className="w-8 h-8 rounded-full" />
+                    <div className="black-font-color ff-bold">{comment.user.username}</div>
                     {isCurrentUser && <div className="ff-medium text-white dark-blue-bg text-sm rounded px-1">you</div>}
-                    <div className="grey-font-color">{creationDate}</div>
+                    <div className="grey-font-color">{calculateDate(comment.createdAt)}</div>
                 </div>
                 {isEdited ? (
                     <textarea
@@ -66,7 +61,7 @@ function Comment({
                     />
                 ) : (
                     <p className="light-grey-font-color">
-                        {replyTo && <span className="font-bold dark-blue">@{replyTo} </span>}
+                        {comment.replyingTo && <span className="font-bold dark-blue">@{comment.replyingTo} </span>}
                         {newContent}
                     </p>
                 )}
@@ -78,7 +73,7 @@ function Comment({
                         className="grid place-content-center cursor-pointer">
                         <img src={Plus} alt="plus sign" />
                     </div>
-                    <div className="grid place-content-center">{score}</div>
+                    <div className="grid place-content-center">{comment.score}</div>
                     <div 
                         onClick={() => decrementScore()}
                         className="grid place-content-center cursor-pointer">
@@ -89,7 +84,7 @@ function Comment({
                     {isEdited ? (
                             <button
                                 onClick={() => {
-                                    updateComment(id, newContent);
+                                    updateComment(comment.id, newContent);
                                     handleEditUpdate();
                                 }}
                                 className="text-base ff-medium px-8 py-3 dark-blue-bg rounded-lg text-white uppercase cursor-pointer transition ease-in-out duration-300 hover:opacity-70"
@@ -113,7 +108,7 @@ function Comment({
                         </>
                     ) : (
                         <CommentButton
-                            onClick={() => handleModalsUpdate(id)}
+                            onClick={() => handleOpenModal(comment.id)}
                             colorClass={"dark-blue"}
                             content={"Reply"}
                             imageSrc={Reply}
@@ -127,15 +122,3 @@ function Comment({
 }
 
 export default Comment;
-
-function CommentButton({ colorClass, content, imageSrc, onClick }) {
-    return (
-        <button
-            onClick={onClick}
-            className={`${colorClass} flex items-center gap-2 ff-bold cursor-pointer transition ease-in-out duration-300 hover:opacity-70`}
-        >
-            <img src={imageSrc} alt="blue arrow" className="w-3.5 h-3.5" />
-            {content}
-        </button>
-    );
-}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function AddReply({ currentUser, onClick, commentId, modalId, handleModalsClose, replyTo }) {
+function AddReply({ currentUser, onClick, commentId, modalId, handleCloseModal, replyTo }) {
     const [newContent, setNewContent] = useState("");
 
     return (
@@ -15,7 +15,7 @@ function AddReply({ currentUser, onClick, commentId, modalId, handleModalsClose,
                 onClick={() => {
                     onClick(commentId, newContent, replyTo);
                     setNewContent(''); 
-                    handleModalsClose(modalId);
+                    handleCloseModal(modalId);
                 }} 
                 className="text-base ff-medium px-8 py-3 dark-blue-bg rounded-lg text-white uppercase cursor-pointer transition ease-in-out duration-300 hover:opacity-70"
             >
